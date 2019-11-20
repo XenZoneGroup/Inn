@@ -1,0 +1,51 @@
+@import "../../../_colours.scss";
+@import "../../../_dimensions.scss";
+
+.content-box {
+  @media (min-width: $desktop) {
+    .content-box-container {
+      width: $content-width;
+      margin: 1em auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      h2 {
+        font-size: 3em;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      .unstack-left {
+        flex: 1 0 0;
+        width: 50%;
+      }
+
+      .unstack-right {
+        flex: 1 0 0;
+        width: 50%;
+      }
+    }
+
+  }
+  display: block;
+  box-sizing: border-box;
+  padding: 1.4em;
+  font-family: Montserrat, sans-serif;
+
+  h2 {
+    min-width: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 1.6em;
+    font-weight: 600;
+  }
+
+  h3 {
+    display: block;
+    box-sizing: border-box;
+    font-size: 1.6em;
+  }
+
+}

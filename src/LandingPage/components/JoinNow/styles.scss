@@ -1,0 +1,19 @@
+@import "../../../_colours.scss";
+@import "../../../_dimensions.scss";
+
+.join-now {
+  background: url('../../../images/need-to-talk.jpg');
+  background-size: cover;
+  background-position: 50% 25%;
+  @media (min-width: $desktop) {
+  }
+
+  h2 {
+    color: $alternate-text;
+  }
+
+  .primary-cta {
+    width: 10em;
+    margin: 1em auto 1em 0;
+  }
+}

@@ -1,0 +1,97 @@
+@import "../_colours.scss";
+@import "../_dimensions.scss";
+
+.info-page {
+  background: $breakout-1;
+  min-height: 80%;
+
+  .info-content {
+    padding: 0.7em;
+    background: $almost-white;
+
+    @media (min-width: $desktop) {
+      padding: 2em;
+    }
+
+    .home-link {
+      @media (min-width: $desktop) {
+        font-size: 1.4em;
+      }
+      display: block;
+      width: 100%;
+      &:visited {
+        color: $text;
+      }
+    }
+
+    h1 {
+      font-size: 2em;
+      display: block;
+      text-align: left;
+      width: 100%;
+      margin: 0.4em 0;
+      @media (min-width: $desktop) {
+        //font-size: 4em;
+      }
+    }
+
+    h2, h3 {
+      font-size: 1.6em;
+      display: block;
+      width: 100%;
+      margin-top: 1em;
+      @media (min-width: $desktop) {
+        margin: 0.4em 0;
+      }
+    }
+
+    p {
+      display: block;
+      width: 100%;
+    }
+
+    ul {
+      margin: 1em 0 1em 1em;
+      padding: 0;
+    }
+  }
+
+}
+
+
+.crisis-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  h3 {
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+
+  li {
+    @media (min-width: $desktop) {
+      width: $content-width;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .service-image {
+    @media (min-width: $desktop) {
+      flex: 1;
+      height: auto;
+      width: 100%;
+      margin: 1em;
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .service-details {
+    @media (min-width: $desktop) {
+      flex: 2;
+    }
+  }
+}

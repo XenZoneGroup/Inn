@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./out",
+    "jsx": "react",
+    "target": "es2015",
+    "lib": ["es2015", "es2015.core", "es2015.promise", "es2017.object", "dom"]
+  },
+  "exclude": [
+    "node_modules",
+    "./src/**/*.spec.ts",
+    "./src/**/*.spec.tsx",
+    "**/__*"
+  ],
+  "include": ["src/**/*"]
+}
