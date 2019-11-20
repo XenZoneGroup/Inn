@@ -27,4 +27,5 @@ It was chosen because:
 
 # Interview Tasks
 
-[ ] Add a new section to the landing page
+[] Add a new question to the sign up form asking for the person's favourite colour. Keep the styling inkeeping with the current form.
+[] Based on what you've seen of the code pick a refactoring you would like to perform, talk us through it.
