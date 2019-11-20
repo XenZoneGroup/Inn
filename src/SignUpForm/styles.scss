@@ -1,0 +1,169 @@
+@import "../_colours.scss";
+@import "../_dimensions.scss";
+
+.form-container {
+  @media (min-width: $phablet) {
+    width: $form-width;
+    margin: 0 auto;
+    padding-bottom: 2em;
+  }
+}
+
+.sign-up {
+  font-family: Montserrat, sans-serif;
+  height: 100%;
+
+  h1 {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    background: #fff;
+    margin: 0;
+    padding: 0.2em 0.6em;
+    @media (min-width: $phablet) {
+      padding: 0.6em;
+    }
+  }
+
+  h2 {
+    font-size: 2em;
+    font-family: Montserrat, sans-serif;
+  }
+
+  h2, p {
+    min-width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    margin: 0.6em;
+    line-height: 1.2;
+  }
+
+  .info {
+    color: $text;
+    background: $form-info;
+    margin: 1em 0 2em 0;
+    padding: 1em 0.6em;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+  }
+
+  .hint {
+    margin: 1em 0.6em;    
+  }
+
+  .progress {
+    width: 100%;
+    display: flex;
+    height: 0.5em;
+  }
+
+  .progress-tick {
+    width: 20%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #c4c4c4;
+    border-right: 3px solid white;
+    &.done {
+      background: #ffc600;
+    }
+  }
+
+  li.glyph {
+    padding-bottom: 0.4em;
+  }
+
+  li.tick {
+    animation: fade-out-validation 0.5s ease-in forwards;
+
+    .glyph-symbol {
+      color: green;
+    }
+  }
+
+  li.cross {
+    animation: fade-in-validation 0.5s ease-in forwards;
+  }
+}
+
+form.sign-up-form {
+  @media (min-width: $phablet) {
+    margin-top: 3em;
+  }
+  .emph {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 1.8em;
+  }
+
+  ul.passwordReqs, ul.usernameReqs {
+    list-style: none;
+    padding: 0.4em 0.7em;
+    margin: 0;
+    margin-bottom: 1em;
+    font-size: 0.9em;
+  }
+
+  @keyframes fade-out-validation {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes fade-in-validation {
+    0% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+form input[type='radio']:checked + label {
+  background: #00e8ff;
+}
+
+input[type='checkbox']:checked + span {
+  color: #00d0bb;
+}
+
+form input[type='text'], form input[type='password'] {
+  @media (min-width: $phablet) {
+    width: 100%;
+  }
+}
+
+form input {
+  box-sizing: border-box;
+}
+
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-box {
+  text-align: center;
+}
+
+.spinner {
+  display: block;
+  margin: 3em auto 1em auto;
+  height: 2em;
+  width: 2em;
+  animation: rotate 1.8s infinite linear;
+  border: 0.5em solid #cecece;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+.kooth-iframe {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

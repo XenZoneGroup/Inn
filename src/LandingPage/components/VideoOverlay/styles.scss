@@ -1,0 +1,53 @@
+@import "./../../../_colours.scss";
+
+$video-background: $kooth-teal;
+
+@keyframes fade-in-video {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #ffffffee;
+  z-index: 100;
+  animation: 0.2s fade-in-video forwards;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+
+.video {
+  flex: 1;
+  flex-grow: initial;
+  background: #fff;
+}
+
+.close-button {
+  width: 90%;
+  text-align: right;
+}
+
+.close-button:hover {
+  cursor: pointer;
+}
+
+.controls {
+  flex: 1;
+  flex-grow: initial;
+  .primary-cta {
+    margin: 1em auto;
+    width: 7em;
+    text-align: center;
+  }
+}

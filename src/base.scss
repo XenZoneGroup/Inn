@@ -1,0 +1,131 @@
+@import "./_colours";
+@import "./_dimensions";
+
+//TODO - refactor this so that it only contains basee styles...
+
+html {
+  height: 100%;
+}
+
+body {
+  font-weight: 400;
+  min-width: 320px;
+  font-family: Helvetica Neue, Helvetica, Ariel, sans-serif;
+  color: $almost-black;
+  background: #f0f2f4;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+}
+
+form,
+fieldset {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+label.button,
+label.checkbox,
+select,
+input[type='text'],
+input[type='password'] {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  box-sizing: border-box;
+  display: block;
+  margin: 0.6em;
+  min-width: 300px;
+  padding: 0.6em;
+  border: 1px solid #c3c3c3;
+  background: #fff;
+  text-align: center;
+}
+
+select {
+  width: 100%;
+  height: 3em;
+}
+
+.drop-down {
+  padding: 0 1.2em 0 0;
+}
+
+input[type='text'],
+input[type='password'] {
+  text-align: left;
+}
+
+input[type='checkbox'] {
+  margin-right: 0.4em;
+}
+
+input[type='submit'] {
+  color: $alternate-text;
+  font-size: 1.2em;
+  border: none;
+  display: block;
+  border-radius: 17px;
+  background: #ffc600;
+  min-width: 150px;
+  height: 3em;
+  box-sizing: border-box;
+  margin: 1em auto;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+}
+
+form input[type='radio'] {
+  position: absolute;
+  opacity: 0.01;
+  width: 0;
+}
+
+label,
+legend {
+  font-size: 1.1em;
+  display: block;
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  margin: 0 0.6em;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+footer {
+  background: $footer-colour;
+  color: $footer-text;
+  padding: 0.6em 1.4em;
+}
+
+.hide-on-desktop {
+  @media (min-width: $desktop) {
+    display: none !important; // TODO - not a fan of using !important
+  }
+}
+
+.reveal-on-desktop {
+  display: none;
+  @media (min-width: $desktop) {
+    display: block !important; // TODO - not a fan of using !important
+  }
+}
+
+.hidden {
+  display: none;
+  &.revealed {
+    display: block;
+  }
+}
+

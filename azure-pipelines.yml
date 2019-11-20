@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include: [master]
+
+variables:
+  CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+
+steps:
+  - task: DownloadSecureFile@1
+    inputs:
+      secureFile: gcp-service-user.json
+    displayName: Get google service user credentials
+  - script: "./ci/bootstrap.sh"
+    displayName: Configure CI agent
+  - script: make bake
+    displayName: Test and package as docker image
+  - script: make publish
+    displayName: Publish to GCR
+  - task: AmazonWebServices.aws-vsts-tools.AWSShellScript.AWSShellScript@1
+    inputs:
+      scriptType: inline
+      inlineScript: make package-all-k8s
+      regionName: 'eu-west-2'
+      awsCredentials: 'AWS BASTION'
+      disableAutoCwd: true
+      workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: Create Kubernetes templates
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: 'tavern-k8s'
+      targetPath: ./dist/k8s

@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tavern-flow-through
+spec:
+  type: ExternalName
+  externalName: ""
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP

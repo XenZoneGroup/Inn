@@ -1,0 +1,84 @@
+@import "../_colours.scss";
+@import "../_dimensions.scss";
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-box {
+  text-align: center;
+}
+
+.spinner {
+  display: block;
+  margin: 3em auto 1em auto;
+  height: 2em;
+  width: 2em;
+  animation: rotate 1.8s infinite linear;
+  border: 0.5em solid #cecece;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+@keyframes expand {
+  0% {
+    background: $expand-flash;
+  }
+  100% {
+    background: $light-background;
+  }
+}
+
+.info-page {
+  background: $breakout-2;
+  .info-content {
+    h1 {
+      font-size: 2em;
+    }
+    .team-list {
+      margin: 2em 0 0 0;
+      padding: 0;
+      list-style: none;
+
+
+      h2 {
+        font-size: 1.6em;
+        font-family: Roboto Condensed, sans-serif;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        font-size: 1em;
+        font-family: Roboto Condensed, sans-serif;
+        text-transform: uppercase;
+      }
+    }
+
+    .bio {
+      max-height: 8em;
+      overflow: hidden;
+    }
+
+    .expanded {
+      animation: expand 0.5s forwards;
+      .bio {
+        max-height: none;
+      }
+    }
+
+    .expand {
+      font-family: Roboto Condensed, sans-serif;
+      display: block;
+      width: 100%;
+    }
+
+    .paginate {
+      font-family: Roboto Condensed, sans-serif;
+      display: block;
+      text-align: center;
+      width: 6em;
+      margin: 1em auto;
+    }
+  }
+}

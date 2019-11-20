@@ -1,0 +1,27 @@
+@import "../../../_colours.scss";
+@import "../../../_dimensions.scss";
+
+footer {
+  padding: 0;
+  font-family: Montserrat, sans-serif;
+  .footer-links {
+    padding: 1.4em;
+    margin: 0 auto;
+    max-width: $content-width;
+    list-style: none;
+    font-weight: 600;
+    .footer-link {
+      display: block;
+      margin-bottom: 0.4em;
+      color: $alternate-text;
+      text-decoration: none;
+    }
+  }
+  .copyright {
+    padding: 0.6em 1.4em;
+    margin: 0 auto;
+    @media (min-width: $desktop) {
+      width: $content-width;
+    }
+  }
+}

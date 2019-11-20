@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/externalName
+  value: api-qa-test.kooth.com

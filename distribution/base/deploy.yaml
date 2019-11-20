@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tavern
+  labels:
+    app: tavern
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tavern
+  template:
+    metadata:
+      labels:
+        app: tavern
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: xenzonegroup.com/environment
+                operator: In
+                values:
+                - "well-line-unstable"
+      containers:
+      - name: tavern
+        image: gcr.io/xzg-support-gcr/tavern:latest
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 10
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 10
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: config-volume
+          mountPath: /data/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: tavern-caba-config
+          items:
+          - key: config
+            path: config.json

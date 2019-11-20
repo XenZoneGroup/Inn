@@ -1,0 +1,8 @@
+- op: replace
+  path: /data/config
+  value: |-
+    {
+      "apiRoot": "https://api-qa-test.kooth.com",
+      "frontendRoot": "https://www-qa-test.kooth.com",
+      "userProfileEndpoint": "https://api-qa-test.xenzonegroup.com/service-users/me"
+    }
