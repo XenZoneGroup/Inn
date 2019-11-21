@@ -25,7 +25,12 @@ It was chosen because:
 
 `npm run start`
 
-# Interview Tasks
+## Interview Task
 
-[] Add a new question to the sign up form asking for the person's favourite colour. Keep the styling inkeeping with the current form.
-[] Based on what you've seen of the code pick a refactoring you would like to perform, talk us through it.
+Add a new question to the sign up form so that users signing up in Wales are asked for the area of Wales they are from.
+
+The list of areas is:
+- North Wales
+- Dyfed Powys
+- South Wales
+- Gwent
