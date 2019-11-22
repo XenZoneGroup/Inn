@@ -8,13 +8,13 @@ const hearAboutUsOptions = [
   '',
   'Family/Friends',
   'Campaign',
-  'CABA Website',
+  'SOME_PARTNER Website',
   'Advert',
   'Event',
-  'CABA Training Course',
+  'SOME_PARTNER Training Course',
   'Newsletter',
   'News Article',
-  'CABA referral',
+  'SOME_PARTNER referral',
   'Facebook',
   'Instagram',
   'Twitter',
@@ -58,7 +58,10 @@ const ResearchAndMarketing: React.FC<SignUpFlowProps> = ({
       <p className="form-text">
         We sometimes use anonymous data about our users for research into
         delivering better services. You can find out more about data and privacy{' '}
-        <a href="https://caba.kooth.com/privacy-and-safety" target="_blank">
+        <a
+          href="https://SOME_PARTNER.kooth.com/privacy-and-safety"
+          target="_blank"
+        >
           here
         </a>
         . You don't need to say yes to use Kooth.

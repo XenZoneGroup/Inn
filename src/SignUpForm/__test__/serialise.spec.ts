@@ -3,40 +3,48 @@ import { databag, serialisedUser } from './helpers';
 
 describe('Create Kooth User', () => {
   it('adds basic info', () => {
-    expect(serialiseCreateUser(databag)["@context"]).toStrictEqual(
-      serialisedUser["@context"]);
-    expect(serialiseCreateUser(databag)["@type"]).toStrictEqual(
-      serialisedUser["@type"]);
+    expect(serialiseCreateUser(databag)['@context']).toStrictEqual(
+      serialisedUser['@context']
+    );
+    expect(serialiseCreateUser(databag)['@type']).toStrictEqual(
+      serialisedUser['@type']
+    );
     expect(serialiseCreateUser(databag).applicationId).toStrictEqual(
-      serialisedUser.applicationId);
+      serialisedUser.applicationId
+    );
   });
 
   it('serialises username', () => {
     expect(serialiseCreateUser(databag).username).toStrictEqual(
-      serialisedUser.username);
+      serialisedUser.username
+    );
   });
 
   it('serialises nickname', () => {
     expect(serialiseCreateUser(databag).nickname).toStrictEqual(
-      serialisedUser.nickname);
+      serialisedUser.nickname
+    );
   });
 
   it('serialises password', () => {
     expect(serialiseCreateUser(databag).password).toStrictEqual(
-      serialisedUser.password);
+      serialisedUser.password
+    );
   });
 
   it('serialises LAID', () => {
     expect(serialiseCreateUser(databag).customer).toStrictEqual(
-      serialisedUser.customer);
+      serialisedUser.customer
+    );
   });
 
   it('sets default Avatar', () => {
     expect(serialiseCreateUser(databag).avatar).toStrictEqual(
-      serialisedUser.avatar);
+      serialisedUser.avatar
+    );
   });
 
-  it("sets subLocation Ids", () => {
+  it('sets subLocation Ids', () => {
     const southEastUser = {
       ...databag,
       location: 'england',
@@ -47,14 +55,15 @@ describe('Create Kooth User', () => {
       ...serialisedUser,
       tags: [
         {
-          "@id": "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/England - South East",
-          "@type": "SubLocation"
-        }
-      ]
+          '@id': 'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/England - South East',
+          '@type': 'SubLocation',
+        },
+      ],
     };
 
-    expect(serialiseCreateUser(southEastUser).tags)
-      .toStrictEqual(serialisedSouthEastUser.tags);
+    expect(serialiseCreateUser(southEastUser).tags).toStrictEqual(
+      serialisedSouthEastUser.tags
+    );
 
     const yorkshireUser = {
       ...databag,
@@ -65,14 +74,16 @@ describe('Create Kooth User', () => {
       ...serialisedUser,
       tags: [
         {
-          "@id": "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/Yorkshire and the Humber",
-          "@type": "SubLocation"
-        }
-      ]
+          '@id':
+            'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/Yorkshire and the Humber',
+          '@type': 'SubLocation',
+        },
+      ],
     };
 
-    expect(serialiseCreateUser(yorkshireUser).tags)
-      .toStrictEqual(serialisedYorkshireUser.tags);
+    expect(serialiseCreateUser(yorkshireUser).tags).toStrictEqual(
+      serialisedYorkshireUser.tags
+    );
 
     const isleOfManUser = {
       ...databag,
@@ -83,33 +94,36 @@ describe('Create Kooth User', () => {
       ...serialisedUser,
       tags: [
         {
-          "@id": "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/Isle of Man",
-          "@type": "SubLocation"
-        }
-      ]
+          '@id': 'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/Isle of Man',
+          '@type': 'SubLocation',
+        },
+      ],
     };
 
-    expect(serialiseCreateUser(isleOfManUser).tags)
-      .toStrictEqual(serialisedIsleOfManUser.tags);
+    expect(serialiseCreateUser(isleOfManUser).tags).toStrictEqual(
+      serialisedIsleOfManUser.tags
+    );
 
     const doNotKnowUser = {
       ...databag,
       location: 'england',
-      region: "i’m-not-sure...",
+      region: 'i’m-not-sure...',
     };
 
     const serialisedDoNotKnowUser = {
       ...serialisedUser,
       tags: [
         {
-          "@id": "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/England - I dont know which region",
-          "@type": "SubLocation"
-        }
-      ]
+          '@id':
+            'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/England - I dont know which region',
+          '@type': 'SubLocation',
+        },
+      ],
     };
 
-    expect(serialiseCreateUser(doNotKnowUser).tags)
-      .toStrictEqual(serialisedDoNotKnowUser.tags);
+    expect(serialiseCreateUser(doNotKnowUser).tags).toStrictEqual(
+      serialisedDoNotKnowUser.tags
+    );
 
     const channelIslandsUser = {
       ...databag,
@@ -120,19 +134,21 @@ describe('Create Kooth User', () => {
       ...serialisedUser,
       tags: [
         {
-          "@id": "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/The Channel Islands",
-          "@type": "SubLocation"
-        }
-      ]
+          '@id': 'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/The Channel Islands',
+          '@type': 'SubLocation',
+        },
+      ],
     };
 
-    expect(serialiseCreateUser(channelIslandsUser).tags)
-      .toStrictEqual(serialisedChannelIslandsUser.tags);
+    expect(serialiseCreateUser(channelIslandsUser).tags).toStrictEqual(
+      serialisedChannelIslandsUser.tags
+    );
   });
 
   it('serialises gender', () => {
-    expect(serialiseCreateUser(databag).gender)
-    .toStrictEqual(serialisedUser.gender);
+    expect(serialiseCreateUser(databag).gender).toStrictEqual(
+      serialisedUser.gender
+    );
   });
 
   it('serialises ethnicity', () => {
@@ -145,13 +161,14 @@ describe('Create Kooth User', () => {
     const serialisedNotStatedUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "NotStated"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'NotStated',
+      },
     };
 
-    expect(serialiseCreateUser(notStatedUser).ethnicity)
-      .toStrictEqual(serialisedNotStatedUser.ethnicity);
+    expect(serialiseCreateUser(notStatedUser).ethnicity).toStrictEqual(
+      serialisedNotStatedUser.ethnicity
+    );
 
     const otherUser = {
       ...databag,
@@ -162,13 +179,14 @@ describe('Create Kooth User', () => {
     const serialisedOtherUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "AnyOtherEthnicGroup"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'AnyOtherEthnicGroup',
+      },
     };
 
-    expect(serialiseCreateUser(otherUser).ethnicity)
-      .toStrictEqual(serialisedOtherUser.ethnicity);
+    expect(serialiseCreateUser(otherUser).ethnicity).toStrictEqual(
+      serialisedOtherUser.ethnicity
+    );
 
     const anyOtherAsianBackgroundUser = {
       ...databag,
@@ -179,13 +197,14 @@ describe('Create Kooth User', () => {
     const serialisedAnyOtherAsianBackgroundUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "AnyOtherAsianBackground"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'AnyOtherAsianBackground',
+      },
     };
 
-    expect(serialiseCreateUser(anyOtherAsianBackgroundUser).ethnicity)
-      .toStrictEqual(serialisedAnyOtherAsianBackgroundUser.ethnicity);
+    expect(
+      serialiseCreateUser(anyOtherAsianBackgroundUser).ethnicity
+    ).toStrictEqual(serialisedAnyOtherAsianBackgroundUser.ethnicity);
 
     const anyOtherBlackBackgroundUser = {
       ...databag,
@@ -196,13 +215,14 @@ describe('Create Kooth User', () => {
     const serialisedAnyOtherBlackBackgroundUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "AnyOtherBlackBackground"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'AnyOtherBlackBackground',
+      },
     };
 
-    expect(serialiseCreateUser(anyOtherBlackBackgroundUser).ethnicity)
-      .toStrictEqual(serialisedAnyOtherBlackBackgroundUser.ethnicity);
+    expect(
+      serialiseCreateUser(anyOtherBlackBackgroundUser).ethnicity
+    ).toStrictEqual(serialisedAnyOtherBlackBackgroundUser.ethnicity);
 
     const anyOtherWhiteBackgroundUser = {
       ...databag,
@@ -213,13 +233,14 @@ describe('Create Kooth User', () => {
     const serialisedAnyOtherWhiteBackgroundUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "AnyOtherWhiteBackground"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'AnyOtherWhiteBackground',
+      },
     };
 
-    expect(serialiseCreateUser(anyOtherWhiteBackgroundUser).ethnicity)
-      .toStrictEqual(serialisedAnyOtherWhiteBackgroundUser.ethnicity);
+    expect(
+      serialiseCreateUser(anyOtherWhiteBackgroundUser).ethnicity
+    ).toStrictEqual(serialisedAnyOtherWhiteBackgroundUser.ethnicity);
 
     const anyOtherMixedBackgroundUser = {
       ...databag,
@@ -230,18 +251,20 @@ describe('Create Kooth User', () => {
     const serialisedAnyOtherMixedBackgroundUser = {
       ...serialisedUser,
       ethnicity: {
-        "@type": "Ethnicity",
-        "@id": "AnyOtherMixedBackground"
-      }
+        '@type': 'Ethnicity',
+        '@id': 'AnyOtherMixedBackground',
+      },
     };
 
-    expect(serialiseCreateUser(anyOtherMixedBackgroundUser).ethnicity)
-      .toStrictEqual(serialisedAnyOtherMixedBackgroundUser.ethnicity);
+    expect(
+      serialiseCreateUser(anyOtherMixedBackgroundUser).ethnicity
+    ).toStrictEqual(serialisedAnyOtherMixedBackgroundUser.ethnicity);
   });
 
   it('serialises date of birth', () => {
-    expect(serialiseCreateUser(databag).birthDate)
-      .toStrictEqual(serialisedUser.birthDate);
+    expect(serialiseCreateUser(databag).birthDate).toStrictEqual(
+      serialisedUser.birthDate
+    );
 
     const octoberUser = {
       ...databag,
@@ -250,34 +273,38 @@ describe('Create Kooth User', () => {
 
     const serialisedOctoberUser = {
       ...serialisedUser,
-      birthDate: "2007-10-01"
+      birthDate: '2007-10-01',
     };
 
-    expect(serialiseCreateUser(octoberUser).birthDate)
-      .toStrictEqual(serialisedOctoberUser.birthDate);
+    expect(serialiseCreateUser(octoberUser).birthDate).toStrictEqual(
+      serialisedOctoberUser.birthDate
+    );
   });
 
   it('serialises referrer', () => {
-    expect(serialiseCreateUser(databag).referrer)
-      .toStrictEqual(serialisedUser.referrer);
+    expect(serialiseCreateUser(databag).referrer).toStrictEqual(
+      serialisedUser.referrer
+    );
 
     const trainingCourseUser = {
       ...databag,
-      heardAboutUs: 'caba-training-course',
+      heardAboutUs: 'SOME_PARTNER-training-course',
     };
 
     const serialisedTrainingCourseUser = {
       ...serialisedUser,
-      referrer: "caba-training-course"
+      referrer: 'SOME_PARTNER-training-course',
     };
 
-    expect(serialiseCreateUser(trainingCourseUser).referrer)
-      .toStrictEqual(serialisedTrainingCourseUser.referrer);
+    expect(serialiseCreateUser(trainingCourseUser).referrer).toStrictEqual(
+      serialisedTrainingCourseUser.referrer
+    );
   });
 
   it('serialises research consent', () => {
-    expect(serialiseCreateUser(databag).researchConsent.consent)
-      .toStrictEqual(serialisedUser.researchConsent.consent);
+    expect(serialiseCreateUser(databag).researchConsent.consent).toStrictEqual(
+      serialisedUser.researchConsent.consent
+    );
 
     const consentUser = {
       ...databag,
@@ -288,12 +315,13 @@ describe('Create Kooth User', () => {
       ...serialisedUser,
       researchConsent: {
         consent: true,
-        datestamp: "2019-07-31T11:34:39.767Z"
-      }
+        datestamp: '2019-07-31T11:34:39.767Z',
+      },
     };
 
-    expect(serialiseCreateUser(consentUser).researchConsent.consent)
-      .toStrictEqual(serialisedConsentUser.researchConsent.consent);
+    expect(
+      serialiseCreateUser(consentUser).researchConsent.consent
+    ).toStrictEqual(serialisedConsentUser.researchConsent.consent);
   });
 
   it.todo('handles errors');

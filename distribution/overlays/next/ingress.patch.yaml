@@ -1,8 +1,0 @@
-- op: add
-  path: /spec/rules/0/host
-  value: tavern.apps.next.test.stacks.xenzonegroup.com
-
-- op: replace
-  path: /spec/tls/0/hosts
-  value:
-    - tavern.apps.next.test.stacks.xenzonegroup.com

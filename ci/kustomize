@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-#NB - this is a shim that should be replaced on the CI server
-#     with the real version of Kustomize.
-
-kustomize "$@"

@@ -14,16 +14,23 @@ import { JoinNow } from './components/JoinNow';
 import './styles.scss';
 import { useConfig } from '../hooks';
 
-const CTAs: React.FC<{urlRoot: string}> = ({ urlRoot }) => (
+const CTAs: React.FC<{ urlRoot: string }> = ({ urlRoot }) => (
   <>
-    <a className="primary-cta" href={urlJoin(urlRoot, '/caba/sign-up/')}>JOIN KOOTH</a>
-    <a href={urlJoin(urlRoot, '?login=true')} className="secondary-cta">ALREADY A MEMBER? LOGIN</a>
+    <a
+      className="primary-cta"
+      href={urlJoin(urlRoot, '/SOME_PARTNER/sign-up/')}
+    >
+      JOIN KOOTH
+    </a>
+    <a href={urlJoin(urlRoot, '?login=true')} className="secondary-cta">
+      ALREADY A MEMBER? LOGIN
+    </a>
   </>
 );
 
 const LandingPage: React.FC = () => {
   React.useEffect(() => {
-    document.title = 'Kooth in Association with CABA | Home';
+    document.title = 'Kooth in Association with SOME_PARTNER | Home';
   });
   const frontendRoot = useConfig<string>('frontendRoot');
 
@@ -32,9 +39,13 @@ const LandingPage: React.FC = () => {
       <Header />
       <section className="hero-box">
         <div className="hero-container">
-          <Link className="crisis-link secondary-cta" to="/in-crisis">IN CRISIS?</Link>
+          <Link className="crisis-link secondary-cta" to="/in-crisis">
+            IN CRISIS?
+          </Link>
           <h1>Free, safe and anonymous online counselling and support.</h1>
-          { frontendRoot.state === 'LOADED' && <CTAs urlRoot={frontendRoot.value}/> }
+          {frontendRoot.state === 'LOADED' && (
+            <CTAs urlRoot={frontendRoot.value} />
+          )}
         </div>
       </section>
       <div className="below-the-fold">

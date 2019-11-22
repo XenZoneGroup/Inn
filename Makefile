@@ -30,7 +30,7 @@ deps-ci: ## Install node packages on CI
 
 .PHONY: build
 build:
-	rm -rf ./dist && npx parcel build index.html --public-url='/caba/sign-up'
+	rm -rf ./dist && npx parcel build index.html --public-url='/SOME_PARTNER/sign-up'
 
 .PHONY: package
 package: build ## Build docker image

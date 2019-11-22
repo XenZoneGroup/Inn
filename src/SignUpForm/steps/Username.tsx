@@ -31,7 +31,9 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
       agreedToTermsOfService === 'agreed' &&
       validatePassword(password) &&
       validateUsername(username) &&
-      uniqueUsername && passwordMatches && (password !== username)
+      uniqueUsername &&
+      passwordMatches &&
+      password !== username
     ) {
       track('sign-up', 'completed-username');
       next(
@@ -55,7 +57,7 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
     const val = event.currentTarget.value;
     setPasswordMatches(password === val);
     setPasswordCheck(val);
-  }
+  };
 
   const updatePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.currentTarget.value;
@@ -67,7 +69,6 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
     const isNew = await usernameIsNew(username);
     setIsNewUsername(isNew);
   };
-
 
   const { isComplex, isLongEnough } = inspectPassword(password);
   const { isCorrectLength, isReadable } = inspectUsername(username);
@@ -94,7 +95,11 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
       <ul className="usernameReqs">
         {tickGlyph('Please do not use special symbols', isReadable)}
         {tickGlyph('Between 6 and 20 characters', isCorrectLength)}
-        {tickGlyph('Username must be unique (not already used on Kooth)', isNewUsername, (isNewUsername) ? 'unique-username' : 'not-unique-username') }
+        {tickGlyph(
+          'Username must be unique (not already used on Kooth)',
+          isNewUsername,
+          isNewUsername ? 'unique-username' : 'not-unique-username'
+        )}
       </ul>
       <label htmlFor="password">Password</label>
       <input
@@ -104,24 +109,29 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
         onChange={updatePassword}
       />
       <ul className="passwordReqs">
-        {tickGlyph(
-          'Mixture of upper case, lower case or numbers',
-          isComplex
-        )}
+        {tickGlyph('Mixture of upper case, lower case or numbers', isComplex)}
         {tickGlyph('8 or more characters', isLongEnough)}
-        {tickGlyph('Cannot match your username', username.toLowerCase() !== password.toLowerCase())}
+        {tickGlyph(
+          'Cannot match your username',
+          username.toLowerCase() !== password.toLowerCase()
+        )}
       </ul>
       <label htmlFor="confirm-password">Confirm your password</label>
       <input
         id="confirm-password"
         data-testid="password-confirm"
         type="password"
-        onChange={ checkPasswordMatches }
+        onChange={checkPasswordMatches}
       />
       <ul className="passwordReqs">{tickGlyph('Matches', passwordMatches)}</ul>
       <p className="form-text">
-        To use Kooth you must agree to our terms of service and read our <a href="https://caba.kooth.com/privacy-and-safety" target="_blank">Privacy
-        and Safety page</a>
+        To use Kooth you must agree to our terms of service and read our{' '}
+        <a
+          href="https://SOME_PARTNER.kooth.com/privacy-and-safety"
+          target="_blank"
+        >
+          Privacy and Safety page
+        </a>
       </p>
       {checkBox(
         'I agree',

@@ -11,24 +11,26 @@ import './base.scss';
 
 import { SignUpForm } from './SignUpForm';
 import { LandingPage } from './LandingPage';
-import { InfoForParents,
-         InCrisis,
-         AboutKooth,
-         PrivacyAndSafety,
-         TermsOfUse } from './InfoPage/pages';
+import {
+  InfoForParents,
+  InCrisis,
+  AboutKooth,
+  PrivacyAndSafety,
+  TermsOfUse,
+} from './InfoPage/pages';
 import { MeetTheTeam } from './InfoPage/MeetTheTeam';
 import { impress, initPiwik } from './utils/analyticsEvents';
 
 interface WrapperProps {
-  children : any;
+  children: any;
 }
 
 const useLocation = () => {
   const ctx = React.useContext(__RouterContext);
   return ctx.location;
-}
+};
 
-const Analytics : React.FC<WrapperProps> = ({ children }) => {
+const Analytics: React.FC<WrapperProps> = ({ children }) => {
   const { pathname } = useLocation();
   const [previousPath, setPreviousPath] = React.useState<string>(null);
 
@@ -41,7 +43,7 @@ const Analytics : React.FC<WrapperProps> = ({ children }) => {
   return children || null;
 };
 
-const ScrollToTop : React.FC<WrapperProps> = ({ children }) => {
+const ScrollToTop: React.FC<WrapperProps> = ({ children }) => {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
@@ -49,26 +51,26 @@ const ScrollToTop : React.FC<WrapperProps> = ({ children }) => {
   }, [pathname]);
 
   return children || null;
-}
+};
 
-const App : React.FC = () => {
+const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop>
         <Analytics>
-          <Route exact path="/" component={ LandingPage } />
-          <Route path="/information-for-parents" component={ InfoForParents } />
-          <Route path="/in-crisis" component={ InCrisis } />
-          <Route path="/about-kooth" component={ AboutKooth } />
-          <Route path="/privacy-and-safety" component={ PrivacyAndSafety } />
-          <Route path="/terms-of-use" component={ TermsOfUse } />
-          <Route path="/meet-the-team" component={ MeetTheTeam } />
-          <Route path="/caba/sign-up" component={ SignUpForm } />
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/information-for-parents" component={InfoForParents} />
+          <Route path="/in-crisis" component={InCrisis} />
+          <Route path="/about-kooth" component={AboutKooth} />
+          <Route path="/privacy-and-safety" component={PrivacyAndSafety} />
+          <Route path="/terms-of-use" component={TermsOfUse} />
+          <Route path="/meet-the-team" component={MeetTheTeam} />
+          <Route path="/SOME_PARTNER/sign-up" component={SignUpForm} />
         </Analytics>
       </ScrollToTop>
     </Router>
   );
-}
+};
 
 initPiwik();
 ReactDom.render(<App />, document.getElementById('main'));

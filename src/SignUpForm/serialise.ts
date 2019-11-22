@@ -1,7 +1,7 @@
 const serialiseCreateUser = (databag: any) => {
   const month = convertMonthToNum(databag.month);
   const consent = databag.researchConsent === 'yes';
-  const CABA_CUSTOMER_ID = '6a225bf0-eed8-47aa-8e88-9fefebee6344';
+  const SOME_PARTNER_CUSTOMER_ID = '6a225bf0-eed8-47aa-8e88-9fefebee6344';
   const KOOTH_APPLICATION_ID = '8bea7523-20ac-4d48-b0f6-eb6bdf861244';
   const DEFAULT_AVATAR = '0';
 
@@ -15,7 +15,7 @@ const serialiseCreateUser = (databag: any) => {
     ),
     avatar: addType(DEFAULT_AVATAR, 'Avatar'),
     birthDate: `${databag.year}-${month}-01`,
-    customer: addType(CABA_CUSTOMER_ID, 'Customer'),
+    customer: addType(SOME_PARTNER_CUSTOMER_ID, 'Customer'),
     ethnicity: addType(
       serialiseEthnicity(databag.ethnicity, databag.background),
       'Ethnicity'
@@ -38,20 +38,20 @@ const serialiseCreateUser = (databag: any) => {
   };
 };
 
-const months : any = {
-  "january": "01",
-  "february": "02",
-  "march": "03",
-  "april": "04",
-  "may": "05",
-  "june": "06",
-  "july": "07",
-  "august": "08",
-  "september": "09",
-  "october": "10",
-  "november": "11",
-  "december": "12",
-  }
+const months: any = {
+  january: '01',
+  february: '02',
+  march: '03',
+  april: '04',
+  may: '05',
+  june: '06',
+  july: '07',
+  august: '08',
+  september: '09',
+  october: '10',
+  november: '11',
+  december: '12',
+};
 
 const convertMonthToNum = (month: string) => {
   return months[month];
@@ -70,20 +70,26 @@ const capitaliseFirstLetter = (word: string) => {
 
 const serialiseEthnicity = (ethnicity: string, background: string) => {
   if (ethnicity === 'not-stated') {
-                                                                                                                                                                                return 'NotStated';
+    return 'NotStated';
   }
 
   if (ethnicity === 'other') {
-                                                                                                                                                                                        return 'AnyOtherEthnicGroup';
-                                                                                                                                                                                          }
+    return 'AnyOtherEthnicGroup';
+  }
 
-  if (background === 'any-other-background' && ethnicity === "black-or-black-british") {
-    return "AnyOtherBlackBackground";
-                                                                                                                                                                                                  }
+  if (
+    background === 'any-other-background' &&
+    ethnicity === 'black-or-black-british'
+  ) {
+    return 'AnyOtherBlackBackground';
+  }
 
-    if (background === 'any-other-background' && ethnicity === "asian-or-asian-british") {
-      return "AnyOtherAsianBackground";
-    }
+  if (
+    background === 'any-other-background' &&
+    ethnicity === 'asian-or-asian-british'
+  ) {
+    return 'AnyOtherAsianBackground';
+  }
 
   if (background === 'any-other-background') {
     return `AnyOther${capitaliseFirstLetter(ethnicity)}Background`;
@@ -101,35 +107,34 @@ const toCamelCase = (gender: string) => {
 };
 
 const formatSublocationId = (location: string, region: string) => {
-  let subLocationId = "ed5b751d-e241-45d9-a981-ce78ca2ffe0f/"
-    .concat(formatLocation(location));
+  let subLocationId = 'ed5b751d-e241-45d9-a981-ce78ca2ffe0f/'.concat(
+    formatLocation(location)
+  );
 
-  if (region === "i’m-not-sure...") {
-    subLocationId += " - I dont know which region";
+  if (region === 'i’m-not-sure...') {
+    subLocationId += ' - I dont know which region';
   } else if (region) {
-    subLocationId += " - " + formatLocation(region);
+    subLocationId += ' - ' + formatLocation(region);
   }
 
   return subLocationId;
 };
 
 const formatLocation = (location: string) => {
-  const words = location.split("-");
+  const words = location.split('-');
 
-  if (location === "the-channel-islands") {
-    return "The Channel Islands";
+  if (location === 'the-channel-islands') {
+    return 'The Channel Islands';
   }
 
-  const capitalisedWords = words.map((word) => {
-    if (word === "and" || word === "the" || word === "of") {
+  const capitalisedWords = words.map(word => {
+    if (word === 'and' || word === 'the' || word === 'of') {
       return word;
     }
     return capitaliseFirstLetter(word);
   });
 
-  return capitalisedWords.join(" ");
+  return capitalisedWords.join(' ');
 };
 
-export {
-  serialiseCreateUser
-}
+export { serialiseCreateUser };
