@@ -13,6 +13,12 @@ It was chosen because:
 - There is enough logic that it can be extended in interesting ways
 - There's some room for refactoring and improvement
 
+Some notes:
+
+- The CI set up has been removed
+- The docker stuff has been left in for the sake of interest but focus on local development for the interview problems
+- Config for local development is in `./parcel.js` incase changing it comes up
+
 ### Setup
 
 `npm install`
@@ -24,13 +30,3 @@ It was chosen because:
 ### Local development
 
 `npm run start`
-
-## Interview Task
-
-Add a new question to the sign up form so that users signing up in Wales are asked for the area of Wales they are from.
-
-The list of areas is:
-- North Wales
-- Dyfed Powys
-- South Wales
-- Gwent
