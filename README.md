@@ -30,3 +30,9 @@ Some notes:
 ### Local development
 
 `npm run start`
+
+### Feature Request
+
+For this interview, we've received a request for a new feature to add to this codebase.
+We're going to work through implementing it together: feel free to ask us for any context or direction within the codebase!
+Don't worry too much about finishing within the hour, we're more interested in seeing how you approach problems and code solutions
