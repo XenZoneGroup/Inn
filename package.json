@@ -5,6 +5,7 @@
   "main": "./out/index.html",
   "scripts": {
     "test": "jest",
+    "test-watch": "jest --watchAll",
     "build": "parcel build ./index.html --public-url='/SOME_PARTNER/sign-up'",
     "docker-go": "docker run -p 7777:80 $(docker build -q -f ./distribution/Dockerfile .)",
     "start": "node ./parcel.js"
