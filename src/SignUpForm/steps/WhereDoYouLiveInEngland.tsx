@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps } from '../';
+import { SignUpStepComponentsProps } from '../';
 import { stringToRadioButton, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -17,16 +17,16 @@ const englandRegions = [
   'I’m not sure...',
 ];
 
-const WhereDoYouLiveInEngland: React.FC<SignUpFlowProps> = ({
+const WhereDoYouLiveInEngland: React.FC<SignUpStepComponentsProps> = ({
   formData,
-  next,
+  proceedToStep,
 }) => {
   const [region, setRegion] = React.useState<string>();
   const submit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (region) {
       track('sign-up', 'completed-where-england');
-      next({ ...formData, region }, 'age');
+      proceedToStep({ ...formData, region }, 'age');
     }
   };
 

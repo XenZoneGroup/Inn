@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { stringToRadioButton, dropDownMenu, nextButton } from '../../templates';
-import { SignUpFlowProps } from '../';
+import { SignUpStepComponentsProps } from '../';
 import { track } from '../../utils/analyticsEvents';
 
 const hearAboutUsOptions = [
@@ -21,9 +21,9 @@ const hearAboutUsOptions = [
   'Other',
 ].sort();
 
-const ResearchAndMarketing: React.FC<SignUpFlowProps> = ({
+const ResearchAndMarketing: React.FC<SignUpStepComponentsProps> = ({
   formData,
-  next,
+  proceedToStep,
 }) => {
   const [researchConsent, setResearchConsent] = React.useState<string>();
   const [heardAboutUs, setHeardAboutUs] = React.useState<string>();
@@ -33,7 +33,7 @@ const ResearchAndMarketing: React.FC<SignUpFlowProps> = ({
 
     if (heardAboutUs && researchConsent) {
       track('sign-up', 'completed-r-and-m');
-      next({ ...formData, researchConsent, heardAboutUs }, 'done');
+      proceedToStep({ ...formData, researchConsent, heardAboutUs }, 'done');
     }
   };
 

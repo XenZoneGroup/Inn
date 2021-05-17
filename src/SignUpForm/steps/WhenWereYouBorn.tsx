@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps } from '../.';
+import { SignUpStepComponentsProps } from '../.';
 import { dropDownMenu, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -31,9 +31,9 @@ const months = [
   'December',
 ];
 
-const WhenWereYouBorn: React.FC<SignUpFlowProps> = ({
+const WhenWereYouBorn: React.FC<SignUpStepComponentsProps> = ({
   formData,
-  next,
+  proceedToStep,
   config,
 }) => {
   const years = _makeAges(26, 11, config.currentYear);
@@ -44,7 +44,7 @@ const WhenWereYouBorn: React.FC<SignUpFlowProps> = ({
     event.preventDefault();
     if (month !== EMPTY && year !== EMPTY) {
       track('sign-up', 'completed-when-born');
-      next({ ...formData, year, month }, 'username');
+      proceedToStep({ ...formData, year, month }, 'username');
     }
   };
 

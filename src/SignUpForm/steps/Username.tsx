@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { nextButton, checkBox, tickGlyph } from '../../templates';
-import { SignUpFlowProps } from '../';
+import { SignUpStepComponentsProps } from '../';
 import { track } from '../../utils/analyticsEvents';
 
 const EMPTY = ' ';
 
-const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
+const Username: React.FC<SignUpStepComponentsProps> = ({
+  formData,
+  proceedToStep,
+  config,
+}) => {
   const {
     inspectPassword,
     validatePassword,
@@ -34,7 +38,7 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
       password !== username
     ) {
       track('sign-up', 'completed-username');
-      next(
+      proceedToStep(
         {
           ...formData,
           username,

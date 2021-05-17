@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement,
-} from '@testing-library/react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import { WhereDoYouLiveInEngland } from '../WhereDoYouLiveInEngland';
 import { testConfig } from './helpers';
 
@@ -13,11 +8,11 @@ describe('Where do you live', () => {
 
   it('Sends people to the age page when they select a region', async () => {
     const dataBag = { existingValue: 'some-data' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const comp = render(
       <WhereDoYouLiveInEngland
         formData={dataBag}
-        next={next}
+        proceedToStep={proceedToStep}
         config={testConfig}
       />
     );
@@ -27,7 +22,7 @@ describe('Where do you live', () => {
     fireEvent.click(comp.getByTestId('london'));
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         region: 'london',
         existingValue: 'some-data',
@@ -36,19 +31,19 @@ describe('Where do you live', () => {
     );
   });
 
-  it("Doesn't send people to the next page if no region was selected", async () => {
+  it("Doesn't send people to the proceedToStep page if no region was selected", async () => {
     const dataBag = { existingValue: 'some-data' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const comp = render(
       <WhereDoYouLiveInEngland
         formData={dataBag}
-        next={next}
+        proceedToStep={proceedToStep}
         config={testConfig}
       />
     );
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 });

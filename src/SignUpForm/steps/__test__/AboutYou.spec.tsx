@@ -11,13 +11,16 @@ import { testConfig } from './helpers';
 describe('About you', () => {
   afterEach(cleanup);
 
-  it('Sends people to the research and marketing page when they fill in the form correctly and choose ethnicity wtih no background',
-    async () => {
+  it('Sends people to the research and marketing page when they fill in the form correctly and choose ethnicity wtih no background', async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <AboutYou formData={dataBag} next={next} config={testConfig} />
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('Which best describes you?');
@@ -30,97 +33,104 @@ describe('About you', () => {
       },
     });
 
-
     fireEvent.click(comp.getByTestId('submit'));
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         someStuff: 'hello',
         gender: 'female',
         ethnicity: 'not-stated',
-        background: " "
+        background: ' ',
       },
       'research and marketing'
     );
   });
 
-  it('Sends people to the research and marketing page when they fill in the form correctly and choose any other ethnic group',
-    async () => {
-      const dataBag = { someStuff: 'hello' };
-      const next = jest.fn();
-
-      const comp = render(
-        <AboutYou formData={dataBag} next={next} config={testConfig} />
-      );
-
-      comp.getByText('Which best describes you?');
-
-      fireEvent.click(comp.getByTestId('female'));
-
-      fireEvent.change(comp.getByTestId('ethnicity'), {
-        target: {
-          value: 'other',
-        },
-      });
-
-
-      fireEvent.click(comp.getByTestId('submit'));
-
-      expect(next).toHaveBeenCalledWith(
-        {
-          someStuff: 'hello',
-          gender: 'female',
-          ethnicity: 'other',
-          background: " "
-        },
-        'research and marketing'
-      );
-    });
-
-  it('Sends people to the research and marketing page when they fill in the form correctly and do set ethnicity',
-    async () => {
-      const dataBag = { someStuff: 'hello' };
-      const next = jest.fn();
-
-      const comp = render(
-        <AboutYou formData={dataBag} next={next} config={testConfig} />
-      );
-
-      comp.getByText('Which best describes you?');
-
-      fireEvent.click(comp.getByTestId('agender'));
-
-      fireEvent.change(comp.getByTestId('ethnicity'), {
-        target: {
-          value: 'asian-or-asian-british',
-        },
-      });
-
-      fireEvent.change(comp.getByTestId('background'), {
-        target: {
-          value: 'bangladeshi',
-        },
-      });
-
-
-      fireEvent.click(comp.getByTestId('submit'));
-
-      expect(next).toHaveBeenCalledWith(
-        {
-          someStuff: 'hello',
-          gender: 'agender',
-          ethnicity: 'asian-or-asian-british',
-          background: 'bangladeshi'
-        },
-        'research and marketing'
-      );
-    });
-
-  it('prevents people moving to the next stage if they haven\'t chosen a gender', async () => {
+  it('Sends people to the research and marketing page when they fill in the form correctly and choose any other ethnic group', async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <AboutYou formData={dataBag} next={next} config={testConfig} />
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
+    );
+
+    comp.getByText('Which best describes you?');
+
+    fireEvent.click(comp.getByTestId('female'));
+
+    fireEvent.change(comp.getByTestId('ethnicity'), {
+      target: {
+        value: 'other',
+      },
+    });
+
+    fireEvent.click(comp.getByTestId('submit'));
+
+    expect(proceedToStep).toHaveBeenCalledWith(
+      {
+        someStuff: 'hello',
+        gender: 'female',
+        ethnicity: 'other',
+        background: ' ',
+      },
+      'research and marketing'
+    );
+  });
+
+  it('Sends people to the research and marketing page when they fill in the form correctly and do set ethnicity', async () => {
+    const dataBag = { someStuff: 'hello' };
+    const proceedToStep = jest.fn();
+
+    const comp = render(
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
+    );
+
+    comp.getByText('Which best describes you?');
+
+    fireEvent.click(comp.getByTestId('agender'));
+
+    fireEvent.change(comp.getByTestId('ethnicity'), {
+      target: {
+        value: 'asian-or-asian-british',
+      },
+    });
+
+    fireEvent.change(comp.getByTestId('background'), {
+      target: {
+        value: 'bangladeshi',
+      },
+    });
+
+    fireEvent.click(comp.getByTestId('submit'));
+
+    expect(proceedToStep).toHaveBeenCalledWith(
+      {
+        someStuff: 'hello',
+        gender: 'agender',
+        ethnicity: 'asian-or-asian-british',
+        background: 'bangladeshi',
+      },
+      'research and marketing'
+    );
+  });
+
+  it("prevents people moving to the proceedToStep stage if they haven't chosen a gender", async () => {
+    const dataBag = { someStuff: 'hello' };
+    const proceedToStep = jest.fn();
+
+    const comp = render(
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('Which best describes you?');
@@ -138,15 +148,19 @@ describe('About you', () => {
     });
 
     fireEvent.click(comp.getByTestId('submit'));
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
-  it('prevents people moving to the next stage if they haven\'t chosen an ethnicity', async () => {
+  it("prevents people moving to the next stage if they haven't chosen an ethnicity", async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <AboutYou formData={dataBag} next={next} config={testConfig} />
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('Which best describes you?');
@@ -154,15 +168,19 @@ describe('About you', () => {
     fireEvent.click(comp.getByTestId('agender'));
 
     fireEvent.click(comp.getByTestId('submit'));
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
-  it('prevents people moving to the next stage if they haven\'t chosen a background when required', async () => {
+  it("prevents people moving to the next stage if they haven't chosen a background when required", async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <AboutYou formData={dataBag} next={next} config={testConfig} />
+      <AboutYou
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('Which best describes you?');
@@ -176,6 +194,6 @@ describe('About you', () => {
     });
 
     fireEvent.click(comp.getByTestId('submit'));
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 });

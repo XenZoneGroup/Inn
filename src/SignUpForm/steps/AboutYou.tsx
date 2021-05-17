@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps } from '../';
+import { SignUpStepComponentsProps } from '../';
 import { stringToRadioButton, dropDownMenu, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -72,7 +72,10 @@ const ethnicities: {
 const _hasBackgrounds = (ethnicity: EthnicityKey): boolean =>
   ethnicities[ethnicity].backgrounds !== null;
 
-const AboutYou: React.FC<SignUpFlowProps> = ({ formData, next }) => {
+const AboutYou: React.FC<SignUpStepComponentsProps> = ({
+  formData,
+  proceedToStep,
+}) => {
   const [gender, setGender] = React.useState();
   const [ethnicity, setEthnicity] = React.useState<EthnicityKey>(
     'not-set' as EthnicityKey
@@ -88,7 +91,7 @@ const AboutYou: React.FC<SignUpFlowProps> = ({ formData, next }) => {
         (ethnicity !== 'not-set' && background !== ' '))
     ) {
       track('sign-up', 'completed-about-you');
-      next(
+      proceedToStep(
         { ...formData, gender, ethnicity, background },
         'research and marketing'
       );

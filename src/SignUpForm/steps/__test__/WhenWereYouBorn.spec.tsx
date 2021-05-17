@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement,
-} from '@testing-library/react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import { WhenWereYouBorn } from '../WhenWereYouBorn';
 import { testConfig } from './helpers';
 
@@ -13,11 +8,15 @@ describe('Where do you live', () => {
 
   it('Sends people to the username page when they complete the form correctly', async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const dob = (testConfig.currentYear - 13).toString();
 
     const comp = render(
-      <WhenWereYouBorn formData={dataBag} next={next} config={testConfig} />
+      <WhenWereYouBorn
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
     comp.getByText('When were you born?');
 
@@ -35,7 +34,7 @@ describe('Where do you live', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         someStuff: 'hello',
         year: dob,
@@ -47,11 +46,15 @@ describe('Where do you live', () => {
 
   it('Does nothing if only year is selected', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const dob = (testConfig.currentYear - 13).toString();
 
     const comp = render(
-      <WhenWereYouBorn formData={dataBag} next={next} config={testConfig} />
+      <WhenWereYouBorn
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     fireEvent.change(comp.getByTestId('when-were-you-born-year'), {
@@ -62,19 +65,23 @@ describe('Where do you live', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
   it('Does nothing if only month is selected', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const currentYear = 2019;
     const dob = (currentYear - 13).toString();
 
     testConfig.currentYear = currentYear;
 
     const comp = render(
-      <WhenWereYouBorn formData={dataBag} next={next} config={testConfig} />
+      <WhenWereYouBorn
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     fireEvent.change(comp.getByTestId('when-were-you-born-month'), {
@@ -85,6 +92,6 @@ describe('Where do you live', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 });

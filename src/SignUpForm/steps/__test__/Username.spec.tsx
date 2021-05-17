@@ -46,14 +46,18 @@ describe('Username', () => {
 
   it('Sends people to the About You step when they fill in the form correctly', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       usernameIsNew: jest.fn(),
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     comp.getByText('Pick a username and password');
@@ -69,7 +73,7 @@ describe('Username', () => {
 
     await waitForElement(() => comp.getByTestId('unique-username'));
 
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         username: 'iamausername',
         password: 'A boring password 1',
@@ -81,14 +85,18 @@ describe('Username', () => {
 
   it("Prevents people signing up if they don't agree to the terms of service", async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       usernameIsNew: jest.fn(),
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
@@ -98,12 +106,12 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
   it('Wont accept invalid passwords', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       validatePassword: jest.fn(),
@@ -111,7 +119,11 @@ describe('Username', () => {
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
@@ -127,19 +139,23 @@ describe('Username', () => {
     await waitForElement(() => comp.getByTestId('unique-username'));
 
     expect(config.validatePassword).toHaveBeenCalledWith('Pwd');
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
   it('Wont accept invalid usernames', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       usernameIsNew: jest.fn(),
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
@@ -154,19 +170,23 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
   it("won't accept existing usernames", async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       usernameIsNew: jest.fn(),
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     _setAndConfirmPassword(comp, 'ValidPassword123%');
@@ -183,7 +203,7 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
     await _setUsername(comp, 'newUsername', true);
@@ -192,7 +212,7 @@ describe('Username', () => {
     fireEvent.click(comp.getByTestId('submit'));
     await waitForElement(() => comp.getByTestId('unique-username'));
 
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         username: 'newUsername',
         password: 'ValidPassword123%',
@@ -204,14 +224,18 @@ describe('Username', () => {
 
   it('will fail validation if you click terms and conditions twice', async () => {
     const dataBag = {};
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
     const config = {
       ...testConfig,
       usernameIsNew: jest.fn(),
     };
 
     const comp = render(
-      <Username formData={dataBag} next={next} config={config} />
+      <Username
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={config}
+      />
     );
 
     comp.getByText('Pick a username and password');
@@ -226,7 +250,7 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
   it.todo('Existing username message not shown by default');

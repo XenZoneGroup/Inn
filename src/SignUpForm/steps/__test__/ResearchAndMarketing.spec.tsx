@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement,
-} from '@testing-library/react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import { ResearchAndMarketing } from '../ResearchAndMarketing';
 import { testConfig } from './helpers';
 
@@ -13,10 +8,14 @@ describe('Research and Marketing', () => {
 
   it('Sends people to the done step when they fill in the form correctly', async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <ResearchAndMarketing formData={dataBag} next={next} config={testConfig} />
+      <ResearchAndMarketing
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('One last thing...');
@@ -31,22 +30,26 @@ describe('Research and Marketing', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).toHaveBeenCalledWith(
+    expect(proceedToStep).toHaveBeenCalledWith(
       {
         someStuff: 'hello',
         heardAboutUs: 'campaign',
-        researchConsent: 'no'
+        researchConsent: 'no',
       },
       'done'
     );
   });
 
-  it('Prevents people from progressing if they don\'t say how they heard about us', async () => {
+  it("Prevents people from progressing if they don't say how they heard about us", async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <ResearchAndMarketing formData={dataBag} next={next} config={testConfig} />
+      <ResearchAndMarketing
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('One last thing...');
@@ -55,15 +58,19 @@ describe('Research and Marketing', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
 
-  it('Prevents people from progressing if they don\'t choose a research option', async () => {
+  it("Prevents people from progressing if they don't choose a research option", async () => {
     const dataBag = { someStuff: 'hello' };
-    const next = jest.fn();
+    const proceedToStep = jest.fn();
 
     const comp = render(
-      <ResearchAndMarketing formData={dataBag} next={next} config={testConfig} />
+      <ResearchAndMarketing
+        formData={dataBag}
+        proceedToStep={proceedToStep}
+        config={testConfig}
+      />
     );
 
     comp.getByText('One last thing...');
@@ -76,7 +83,6 @@ describe('Research and Marketing', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    expect(next).not.toHaveBeenCalled();
+    expect(proceedToStep).not.toHaveBeenCalled();
   });
-
 });

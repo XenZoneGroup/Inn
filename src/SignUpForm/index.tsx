@@ -28,7 +28,7 @@ type SignUpStep =
   | 'research and marketing'
   | 'done';
 
-type DataBag = {
+type FormData = {
   [k: string]: string;
 };
 
@@ -41,13 +41,15 @@ interface Config {
   usernameIsNew: (username: string) => Promise<boolean>;
 }
 
-interface SignUpFlowProps {
-  formData: DataBag;
-  next: (formData: DataBag, step: SignUpStep) => void;
+interface SignUpStepComponentsProps {
+  formData: FormData;
+  proceedToStep: (formData: FormData, step: SignUpStep) => void;
   config: Config;
 }
 
-const STEP_COMPONENTS: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
+const STEP_COMPONENTS: {
+  [k in SignUpStep]: React.FC<SignUpStepComponentsProps>;
+} = {
   location: WhereDoYouLive,
   region: WhereDoYouLiveInEngland,
   age: WhenWereYouBorn,
@@ -78,19 +80,19 @@ const progressBarValues = (step: SignUpStep) => {
 
 const SignUpForm: React.FC = () => {
   const [step, setStep] = React.useState<SignUpStep>('location');
-  const [data, setData] = React.useState<DataBag>({});
-
-  const next = (formData: DataBag, step: SignUpStep) => {
-    setData(formData);
-    setStep(step);
-    window.scrollTo(0, 0);
-  };
+  const [formData, setFormData] = React.useState<FormData>({});
 
   const apiRoot = useConfig<string>('apiRoot');
 
-  const flowProps = {
-    formData: data,
-    next,
+  const stepComponentsProps = {
+    formData,
+
+    proceedToStep: (formData: FormData, step: SignUpStep) => {
+      setFormData(formData);
+      setStep(step);
+      window.scrollTo(0, 0);
+    },
+
     config: {
       currentYear: new Date().getUTCFullYear(),
       validatePassword,
@@ -112,11 +114,11 @@ const SignUpForm: React.FC = () => {
         <div className="form-container">
           <ProgressBar progress={progressBarValues(step)} maxProgress={5} />
 
-          <CurrentStep {...flowProps} />
+          <CurrentStep {...stepComponentsProps} />
         </div>
       )}
     </section>
   );
 };
 
-export { SignUpForm, SignUpFlowProps, SignUpStep, Config };
+export { SignUpForm, SignUpStepComponentsProps, SignUpStep, Config };
