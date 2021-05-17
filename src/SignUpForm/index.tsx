@@ -47,7 +47,7 @@ interface SignUpFlowProps {
   config: Config;
 }
 
-const SignUpStepComponents: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
+const STEP_COMPONENTS: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
   location: WhereDoYouLive,
   region: WhereDoYouLiveInEngland,
   age: WhenWereYouBorn,
@@ -57,7 +57,7 @@ const SignUpStepComponents: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
   done: Done,
 };
 
-const _stepToProgress = (step: SignUpStep) => {
+const progressBarValues = (step: SignUpStep) => {
   switch (step) {
     case 'location':
       return 1;
@@ -102,7 +102,7 @@ const SignUpForm: React.FC = () => {
     },
   };
 
-  const CurrentSignUpStep = SignUpStepComponents[step];
+  const CurrentStep = STEP_COMPONENTS[step];
 
   return (
     <section className="sign-up">
@@ -110,9 +110,9 @@ const SignUpForm: React.FC = () => {
 
       {apiRoot.state === 'LOADED' && (
         <div className="form-container">
-          <ProgressBar progress={_stepToProgress(step)} maxProgress={5} />
+          <ProgressBar progress={progressBarValues(step)} maxProgress={5} />
 
-          <CurrentSignUpStep {...flowProps} />
+          <CurrentStep {...flowProps} />
         </div>
       )}
     </section>
