@@ -17,6 +17,7 @@ import {
 } from './validation';
 import './styles.scss';
 import { useConfig } from '../hooks';
+import { ProgressBar } from './ProgressBar';
 
 type SignUpStep =
   | 'location'
@@ -54,28 +55,6 @@ const SignUpStepComponents: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
   username: Username,
   'research and marketing': ResearchAndMarketing,
   done: Done,
-};
-
-interface ProgressProps {
-  progress: number;
-  maxProgress: number;
-}
-
-const _progressClass = (progress: number, progression: number) => {
-  return progression >= progress ? 'progress-tick done' : 'progress-tick';
-};
-
-const ProgressBar: React.FC<ProgressProps> = ({ progress, maxProgress }) => {
-  const progression = Math.floor((progress / maxProgress) * 5);
-  return (
-    <div className="progress" role="progressbar">
-      {[1, 2, 3, 4, 5].map((n: number) => (
-        <div key={n} className={_progressClass(n, progression)}>
-          &nbsp;
-        </div>
-      ))}
-    </div>
-  );
 };
 
 const _stepToProgress = (step: SignUpStep) => {
