@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps, SignUpStep } from '../';
+import { SignUpFlowProps } from '../';
 import { stringToRadioButton, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -26,7 +26,7 @@ const WhereDoYouLiveInEngland: React.FC<SignUpFlowProps> = ({
     event.preventDefault();
     if (region) {
       track('sign-up', 'completed-where-england');
-      next({ ...formData, region }, SignUpStep.AGE);
+      next({ ...formData, region }, 'age');
     }
   };
 

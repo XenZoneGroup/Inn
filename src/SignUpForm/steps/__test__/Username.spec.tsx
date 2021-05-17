@@ -7,7 +7,6 @@ import {
 } from '@testing-library/react';
 import { Username } from '../Username';
 import { testConfig } from './helpers';
-import { SignUpStep } from '../../index';
 
 describe('Username', () => {
   afterEach(cleanup);
@@ -62,7 +61,7 @@ describe('Username', () => {
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
     await _setUsername(comp, 'iamausername', true);
 
-    _setAndConfirmPassword(comp, "A boring password 1")
+    _setAndConfirmPassword(comp, 'A boring password 1');
 
     fireEvent.click(comp.getByTestId('terms-of-service'));
 
@@ -76,7 +75,7 @@ describe('Username', () => {
         password: 'A boring password 1',
         termsOfService: 'agreed',
       },
-      SignUpStep.ABOUT_YOU
+      'about you'
     );
   });
 
@@ -127,7 +126,7 @@ describe('Username', () => {
 
     await waitForElement(() => comp.getByTestId('unique-username'));
 
-    expect(config.validatePassword).toHaveBeenCalledWith("Pwd");
+    expect(config.validatePassword).toHaveBeenCalledWith('Pwd');
     expect(next).not.toHaveBeenCalled();
   });
 
@@ -199,7 +198,7 @@ describe('Username', () => {
         password: 'ValidPassword123%',
         termsOfService: 'agreed',
       },
-      SignUpStep.ABOUT_YOU
+      'about you'
     );
   });
 
@@ -220,7 +219,7 @@ describe('Username', () => {
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
     await _setUsername(comp, 'iamausername', true);
 
-    _setAndConfirmPassword(comp, "A boring password 1")
+    _setAndConfirmPassword(comp, 'A boring password 1');
 
     fireEvent.click(comp.getByTestId('terms-of-service'));
     fireEvent.click(comp.getByTestId('terms-of-service'));

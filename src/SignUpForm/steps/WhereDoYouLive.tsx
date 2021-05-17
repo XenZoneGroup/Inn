@@ -1,7 +1,6 @@
 import * as React from 'react';
-
 import { stringToRadioButton, nextButton } from '../../templates';
-import { SignUpFlowProps, SignUpStep } from '../';
+import { SignUpFlowProps } from '../';
 import { track } from '../../utils/analyticsEvents';
 
 const locations = [
@@ -10,7 +9,7 @@ const locations = [
   'Scotland',
   'Wales',
   'The Channel Islands',
-  'Isle of Man'
+  'Isle of Man',
 ];
 
 const WhereDoYouLive: React.FC<SignUpFlowProps> = ({ formData, next }) => {
@@ -19,10 +18,10 @@ const WhereDoYouLive: React.FC<SignUpFlowProps> = ({ formData, next }) => {
     event.preventDefault();
     if (location === 'england') {
       track('sign-up', 'completed-where-live');
-      next({ ...formData, location }, SignUpStep.REGION);
+      next({ ...formData, location }, 'region');
     } else if (location) {
       track('sign-up', 'completed-where-live');
-      next({ ...formData, location }, SignUpStep.AGE);
+      next({ ...formData, location }, 'age');
     }
   };
 

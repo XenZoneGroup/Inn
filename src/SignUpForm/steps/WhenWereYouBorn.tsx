@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps, SignUpStep } from '../.';
+import { SignUpFlowProps } from '../.';
 import { dropDownMenu, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -44,7 +44,7 @@ const WhenWereYouBorn: React.FC<SignUpFlowProps> = ({
     event.preventDefault();
     if (month !== EMPTY && year !== EMPTY) {
       track('sign-up', 'completed-when-born');
-      next({ ...formData, year, month }, SignUpStep.USERNAME);
+      next({ ...formData, year, month }, 'username');
     }
   };
 

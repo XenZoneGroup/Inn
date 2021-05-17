@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { stringToRadioButton, dropDownMenu, nextButton } from '../../templates';
-import { SignUpFlowProps, SignUpStep } from '../';
+import { SignUpFlowProps } from '../';
 import { track } from '../../utils/analyticsEvents';
 
 const hearAboutUsOptions = [
@@ -33,7 +33,7 @@ const ResearchAndMarketing: React.FC<SignUpFlowProps> = ({
 
     if (heardAboutUs && researchConsent) {
       track('sign-up', 'completed-r-and-m');
-      next({ ...formData, researchConsent, heardAboutUs }, SignUpStep.DONE);
+      next({ ...formData, researchConsent, heardAboutUs }, 'done');
     }
   };
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SignUpFlowProps, SignUpStep } from '../';
+import { SignUpFlowProps } from '../';
 import { stringToRadioButton, dropDownMenu, nextButton } from '../../templates';
 import { track } from '../../utils/analyticsEvents';
 
@@ -81,17 +81,16 @@ const AboutYou: React.FC<SignUpFlowProps> = ({ formData, next }) => {
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (gender &&
-        (
-          ethnicity === "not-stated" ||
-          ethnicity === "other" ||
-          (ethnicity !== "not-set" && background !== " ")
-        )
-      ) {
+    if (
+      gender &&
+      (ethnicity === 'not-stated' ||
+        ethnicity === 'other' ||
+        (ethnicity !== 'not-set' && background !== ' '))
+    ) {
       track('sign-up', 'completed-about-you');
       next(
         { ...formData, gender, ethnicity, background },
-        SignUpStep.RESEARCH_AND_MARKETING
+        'research and marketing'
       );
     }
   };
@@ -110,12 +109,17 @@ const AboutYou: React.FC<SignUpFlowProps> = ({ formData, next }) => {
   return (
     <form onSubmit={submit} className="sign-up-form">
       <h2>Which best describes you?</h2>
+
       <p className="info">
         These questions help us to understand who uses Kooth.
       </p>
+
       <fieldset>
         <legend>My gender is best described as</legend>
-        {genders.map(g => stringToRadioButton('gender', g, setGender))}
+
+        {genders.map(gender =>
+          stringToRadioButton('gender', gender, setGender)
+        )}
       </fieldset>
 
       {dropDownMenu(

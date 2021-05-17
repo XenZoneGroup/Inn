@@ -1,7 +1,4 @@
 import * as React from 'react';
-
-import { stringToRadioButton, dropDownOption } from '../templates';
-
 import { WhereDoYouLive } from './steps/WhereDoYouLive';
 import { WhereDoYouLiveInEngland } from './steps/WhereDoYouLiveInEngland';
 import { WhenWereYouBorn } from './steps/WhenWereYouBorn';
@@ -21,19 +18,18 @@ import {
 import './styles.scss';
 import { useConfig } from '../hooks';
 
-enum SignUpStep {
-  LOCATION = 'location',
-  REGION = 'region',
-  AGE = 'age',
-  ABOUT_YOU = 'about you',
-  USERNAME = 'username',
-  RESEARCH_AND_MARKETING = 'research and marketing',
-  DONE = 'done',
-}
+type SignUpStep =
+  | 'location'
+  | 'region'
+  | 'age'
+  | 'about you'
+  | 'username'
+  | 'research and marketing'
+  | 'done';
 
-interface DataBag {
+type DataBag = {
   [k: string]: string;
-}
+};
 
 interface Config {
   currentYear: number;
@@ -50,14 +46,14 @@ interface SignUpFlowProps {
   config: Config;
 }
 
-const STEPS: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
-  [SignUpStep.LOCATION]: WhereDoYouLive,
-  [SignUpStep.REGION]: WhereDoYouLiveInEngland,
-  [SignUpStep.AGE]: WhenWereYouBorn,
-  [SignUpStep.ABOUT_YOU]: AboutYou,
-  [SignUpStep.USERNAME]: Username,
-  [SignUpStep.RESEARCH_AND_MARKETING]: ResearchAndMarketing,
-  [SignUpStep.DONE]: Done,
+const SignUpStepComponents: { [k in SignUpStep]: React.FC<SignUpFlowProps> } = {
+  location: WhereDoYouLive,
+  region: WhereDoYouLiveInEngland,
+  age: WhenWereYouBorn,
+  'about you': AboutYou,
+  username: Username,
+  'research and marketing': ResearchAndMarketing,
+  done: Done,
 };
 
 interface ProgressProps {
@@ -66,17 +62,17 @@ interface ProgressProps {
 }
 
 const _progressClass = (progress: number, progression: number) => {
-  return (progression >= progress)
-    ? 'progress-tick done'
-    : 'progress-tick';
-}
+  return progression >= progress ? 'progress-tick done' : 'progress-tick';
+};
 
 const ProgressBar: React.FC<ProgressProps> = ({ progress, maxProgress }) => {
   const progression = Math.floor((progress / maxProgress) * 5);
   return (
     <div className="progress" role="progressbar">
       {[1, 2, 3, 4, 5].map((n: number) => (
-        <div key={ n } className={ _progressClass(n, progression) }>&nbsp;</div>
+        <div key={n} className={_progressClass(n, progression)}>
+          &nbsp;
+        </div>
       ))}
     </div>
   );
@@ -84,17 +80,17 @@ const ProgressBar: React.FC<ProgressProps> = ({ progress, maxProgress }) => {
 
 const _stepToProgress = (step: SignUpStep) => {
   switch (step) {
-    case SignUpStep.LOCATION:
+    case 'location':
       return 1;
-    case SignUpStep.REGION:
+    case 'region':
       return 1;
-    case SignUpStep.AGE:
+    case 'age':
       return 2;
-    case SignUpStep.USERNAME:
+    case 'username':
       return 3;
-    case SignUpStep.ABOUT_YOU:
+    case 'about you':
       return 4;
-    case SignUpStep.RESEARCH_AND_MARKETING:
+    case 'research and marketing':
       return 5;
     default:
       return 1;
@@ -102,13 +98,15 @@ const _stepToProgress = (step: SignUpStep) => {
 };
 
 const SignUpForm: React.FC = () => {
-  const [step, setStep] = React.useState<SignUpStep>(SignUpStep.LOCATION);
+  const [step, setStep] = React.useState<SignUpStep>('location');
   const [data, setData] = React.useState<DataBag>({});
+
   const next = (formData: DataBag, step: SignUpStep) => {
     setData(formData);
     setStep(step);
     window.scrollTo(0, 0);
   };
+
   const apiRoot = useConfig<string>('apiRoot');
 
   const flowProps = {
@@ -120,18 +118,24 @@ const SignUpForm: React.FC = () => {
       inspectPassword,
       validateUsername,
       inspectUsername,
-      usernameIsNew: (username: string) => usernameIsNew(username, apiRoot.value),
+      usernameIsNew: (username: string) =>
+        usernameIsNew(username, apiRoot.value),
     },
   };
-  const CurrentStep = STEPS[step];
+
+  const CurrentSignUpStep = SignUpStepComponents[step];
 
   return (
     <section className="sign-up">
       <h1>Sign Up</h1>
-      {apiRoot.state === 'LOADED' && <div className="form-container">
-        <ProgressBar progress={_stepToProgress(step)} maxProgress={5} />
-        <CurrentStep {...flowProps} />
-      </div>}
+
+      {apiRoot.state === 'LOADED' && (
+        <div className="form-container">
+          <ProgressBar progress={_stepToProgress(step)} maxProgress={5} />
+
+          <CurrentSignUpStep {...flowProps} />
+        </div>
+      )}
     </section>
   );
 };

@@ -1,8 +1,6 @@
 import * as React from 'react';
-
 import { nextButton, checkBox, tickGlyph } from '../../templates';
-import { SignUpFlowProps, SignUpStep } from '../';
-import { usernameIsNew } from '../validation';
+import { SignUpFlowProps } from '../';
 import { track } from '../../utils/analyticsEvents';
 
 const EMPTY = ' ';
@@ -43,7 +41,7 @@ const Username: React.FC<SignUpFlowProps> = ({ formData, next, config }) => {
           password,
           termsOfService: agreedToTermsOfService,
         },
-        SignUpStep.ABOUT_YOU
+        'about you'
       );
     }
   };
