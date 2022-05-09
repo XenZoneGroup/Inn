@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement,
-} from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import { Username } from '../Username';
 import { testConfig } from './helpers';
 
@@ -23,7 +18,9 @@ describe('Username', () => {
     await fireEvent.blur(element.getByTestId('username'));
 
     if (isNew) {
-      await waitForElement(() => element.getByTestId('unique-username')); // NE TODO: This doesn't currently test anything as it's set by default
+      waitFor(() => {
+        expect(element.getByTestId('unique-username')).toBeInTheDocument();
+      });
     }
   };
 
@@ -71,16 +68,17 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    await waitForElement(() => comp.getByTestId('unique-username'));
-
-    expect(proceedToStep).toHaveBeenCalledWith(
-      {
-        username: 'iamausername',
-        password: 'A boring password 1',
-        termsOfService: 'agreed',
-      },
-      'about you'
-    );
+    waitFor(() => {
+      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
+      expect(proceedToStep).toHaveBeenCalledWith(
+        {
+          username: 'iamausername',
+          password: 'A boring password 1',
+          termsOfService: 'agreed',
+        },
+        'about you'
+      );
+    });
   });
 
   it("Prevents people signing up if they don't agree to the terms of service", async () => {
@@ -136,10 +134,11 @@ describe('Username', () => {
 
     fireEvent.click(comp.getByTestId('submit'));
 
-    await waitForElement(() => comp.getByTestId('unique-username'));
-
-    expect(config.validatePassword).toHaveBeenCalledWith('Pwd');
-    expect(proceedToStep).not.toHaveBeenCalled();
+    waitFor(() => {
+      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
+      expect(config.validatePassword).toHaveBeenCalledWith('Pwd');
+      expect(proceedToStep).not.toHaveBeenCalled();
+    });
   });
 
   it('Wont accept invalid usernames', async () => {
@@ -210,16 +209,21 @@ describe('Username', () => {
     await expect(config.usernameIsNew).toHaveBeenCalled();
 
     fireEvent.click(comp.getByTestId('submit'));
-    await waitForElement(() => comp.getByTestId('unique-username'));
 
-    expect(proceedToStep).toHaveBeenCalledWith(
-      {
-        username: 'newUsername',
-        password: 'ValidPassword123%',
-        termsOfService: 'agreed',
-      },
-      'about you'
-    );
+    waitFor(() => {
+      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
+    });
+
+    waitFor(() => {
+      expect(proceedToStep).toHaveBeenCalledWith(
+        {
+          username: 'newUsername',
+          password: 'ValidPassword123%',
+          termsOfService: 'agreed',
+        },
+        'about you'
+      );
+    });
   });
 
   it('will fail validation if you click terms and conditions twice', async () => {

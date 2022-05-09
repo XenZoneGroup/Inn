@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useConfig } from '../hooks';
+import { render, waitFor, cleanup } from '@testing-library/react';
 
-import { render, waitForElement, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import nock from 'nock';
 
@@ -33,10 +33,10 @@ describe('Use config hook', () => {
     const comp = render(<StubComponent />);
 
     expect(comp.getByTestId('LOADING').textContent).toBe('LOADING');
-
-    await waitForElement(() => comp.getAllByTestId('LOADED'));
-
-    expect(comp.getByTestId('value').textContent).toBe('test-value');
+    waitFor(() => {
+      expect(comp.getAllByTestId('LOADED')).toBeInTheDocument();
+      expect(comp.getByTestId('value').textContent).toBe('test-value');
+    });
   });
 
   it('Returns an error state if the key does not exist or is undefined', async () => {
@@ -50,8 +50,9 @@ describe('Use config hook', () => {
 
     const comp = render(<StubComponent />);
 
-    await waitForElement(() => comp.getAllByTestId('ERRORED'));
-
+    waitFor(() => {
+      expect(comp.getAllByTestId('ERRORED')).toBeInTheDocument();
+    });
     expect(comp.getByTestId('value').textContent).toBe('');
   });
 });

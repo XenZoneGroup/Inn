@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen } from '@testing-library/react';
 import { WhereDoYouLiveInEngland } from '../WhereDoYouLiveInEngland';
 import { testConfig } from './helpers';
 

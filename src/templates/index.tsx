@@ -6,7 +6,7 @@ const slugify = (s: string) => s.replace(/\s+/g, '-').toLowerCase();
 const stringToRadioButton = (
   name: string,
   s: string,
-  onSelect: (val: string) => void
+  onSelect: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const slug = slugify(s);
 
@@ -73,11 +73,14 @@ const nextButton = () => (
   <input type="submit" value="NEXT" data-testid="submit" />
 );
 
-const tickGlyph = (text: string, active: boolean, testId? : string) => {
+const tickGlyph = (text: string, active: boolean, testId?: string) => {
   return (
-    <li className={active ? 'glyph tick' : 'glyph cross'} data-testid={ testId || "not-set" }>
+    <li
+      className={active ? 'glyph tick' : 'glyph cross'}
+      data-testid={testId || 'not-set'}
+    >
       <span className="glyph-symbol">{active ? '✓' : '✗'}</span>
-      <span className="glyph-text">{" " + text}</span>
+      <span className="glyph-text">{' ' + text}</span>
     </li>
   );
 };

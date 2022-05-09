@@ -76,7 +76,7 @@ const AboutYou: React.FC<SignUpStepComponentsProps> = ({
   formData,
   proceedToStep,
 }) => {
-  const [gender, setGender] = React.useState();
+  const [gender, setGender] = React.useState<string | undefined>();
   const [ethnicity, setEthnicity] = React.useState<EthnicityKey>(
     'not-set' as EthnicityKey
   );
