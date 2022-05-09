@@ -21,7 +21,8 @@ Some notes:
 
 ### Setup
 
-`npm install`
+1. `nvm use` (then, if this repository's node version isn't yet installed on your computer, follow the command line prompt to install it)
+2. `npm install`
 
 ### Tests
 
