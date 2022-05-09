@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen } from '@testing-library/react';
 import { ResearchAndMarketing } from '../ResearchAndMarketing';
 import { testConfig } from './helpers';
 
@@ -10,7 +10,7 @@ describe('Research and Marketing', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <ResearchAndMarketing
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -18,17 +18,17 @@ describe('Research and Marketing', () => {
       />
     );
 
-    comp.getByText('One last thing...');
+    screen.getByText('One last thing...');
 
-    fireEvent.change(comp.getByTestId('heard-about-us'), {
+    fireEvent.change(screen.getByTestId('heard-about-us'), {
       target: {
         value: 'campaign',
       },
     });
 
-    fireEvent.click(comp.getByTestId('no'));
+    fireEvent.click(screen.getByTestId('no'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).toHaveBeenCalledWith(
       {
@@ -44,7 +44,7 @@ describe('Research and Marketing', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <ResearchAndMarketing
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -52,11 +52,11 @@ describe('Research and Marketing', () => {
       />
     );
 
-    comp.getByText('One last thing...');
+    screen.getByText('One last thing...');
 
-    fireEvent.click(comp.getByTestId('yes'));
+    fireEvent.click(screen.getByTestId('yes'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });
@@ -65,7 +65,7 @@ describe('Research and Marketing', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <ResearchAndMarketing
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -73,15 +73,15 @@ describe('Research and Marketing', () => {
       />
     );
 
-    comp.getByText('One last thing...');
+    screen.getByText('One last thing...');
 
-    fireEvent.change(comp.getByTestId('heard-about-us'), {
+    fireEvent.change(screen.getByTestId('heard-about-us'), {
       target: {
         value: 'campaign',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });

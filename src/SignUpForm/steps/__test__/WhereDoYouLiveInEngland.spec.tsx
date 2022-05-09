@@ -9,7 +9,8 @@ describe('Where do you live', () => {
   it('Sends people to the age page when they select a region', async () => {
     const dataBag = { existingValue: 'some-data' };
     const proceedToStep = jest.fn();
-    const comp = render(
+
+    render(
       <WhereDoYouLiveInEngland
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -17,10 +18,10 @@ describe('Where do you live', () => {
       />
     );
 
-    comp.getByText('Awesome! Where in England?');
+    screen.getByText('Awesome! Where in England?');
 
-    fireEvent.click(comp.getByTestId('london'));
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('london'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).toHaveBeenCalledWith(
       {
@@ -34,7 +35,8 @@ describe('Where do you live', () => {
   it("Doesn't send people to the proceedToStep page if no region was selected", async () => {
     const dataBag = { existingValue: 'some-data' };
     const proceedToStep = jest.fn();
-    const comp = render(
+
+    render(
       <WhereDoYouLiveInEngland
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -42,7 +44,7 @@ describe('Where do you live', () => {
       />
     );
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });

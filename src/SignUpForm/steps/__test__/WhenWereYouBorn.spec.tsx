@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen } from '@testing-library/react';
 import { WhenWereYouBorn } from '../WhenWereYouBorn';
 import { testConfig } from './helpers';
 
@@ -11,28 +11,29 @@ describe('Where do you live', () => {
     const proceedToStep = jest.fn();
     const dob = (testConfig.currentYear - 13).toString();
 
-    const comp = render(
+    render(
       <WhenWereYouBorn
         formData={dataBag}
         proceedToStep={proceedToStep}
         config={testConfig}
       />
     );
-    comp.getByText('When were you born?');
 
-    fireEvent.change(comp.getByTestId('when-were-you-born-year'), {
+    screen.getByText('When were you born?');
+
+    fireEvent.change(screen.getByTestId('when-were-you-born-year'), {
       target: {
         value: dob,
       },
     });
 
-    fireEvent.change(comp.getByTestId('when-were-you-born-month'), {
+    fireEvent.change(screen.getByTestId('when-were-you-born-month'), {
       target: {
         value: 'february',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).toHaveBeenCalledWith(
       {
@@ -49,7 +50,7 @@ describe('Where do you live', () => {
     const proceedToStep = jest.fn();
     const dob = (testConfig.currentYear - 13).toString();
 
-    const comp = render(
+    render(
       <WhenWereYouBorn
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -57,13 +58,13 @@ describe('Where do you live', () => {
       />
     );
 
-    fireEvent.change(comp.getByTestId('when-were-you-born-year'), {
+    fireEvent.change(screen.getByTestId('when-were-you-born-year'), {
       target: {
         value: dob,
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });
@@ -76,7 +77,7 @@ describe('Where do you live', () => {
 
     testConfig.currentYear = currentYear;
 
-    const comp = render(
+    render(
       <WhenWereYouBorn
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -84,13 +85,13 @@ describe('Where do you live', () => {
       />
     );
 
-    fireEvent.change(comp.getByTestId('when-were-you-born-month'), {
+    fireEvent.change(screen.getByTestId('when-were-you-born-month'), {
       target: {
         value: 'february',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen } from '@testing-library/react';
 import { AboutYou } from '../AboutYou';
 import { testConfig } from './helpers';
 
@@ -10,7 +10,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -18,17 +18,17 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.click(comp.getByTestId('female'));
+    fireEvent.click(screen.getByTestId('female'));
 
-    fireEvent.change(comp.getByTestId('ethnicity'), {
+    fireEvent.change(screen.getByTestId('ethnicity'), {
       target: {
         value: 'not-stated',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
     expect(proceedToStep).toHaveBeenCalledWith(
       {
         someStuff: 'hello',
@@ -44,7 +44,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -52,17 +52,17 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.click(comp.getByTestId('female'));
+    fireEvent.click(screen.getByTestId('female'));
 
-    fireEvent.change(comp.getByTestId('ethnicity'), {
+    fireEvent.change(screen.getByTestId('ethnicity'), {
       target: {
         value: 'other',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).toHaveBeenCalledWith(
       {
@@ -79,7 +79,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -87,23 +87,23 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.click(comp.getByTestId('agender'));
+    fireEvent.click(screen.getByTestId('agender'));
 
-    fireEvent.change(comp.getByTestId('ethnicity'), {
+    fireEvent.change(screen.getByTestId('ethnicity'), {
       target: {
         value: 'asian-or-asian-british',
       },
     });
 
-    fireEvent.change(comp.getByTestId('background'), {
+    fireEvent.change(screen.getByTestId('background'), {
       target: {
         value: 'bangladeshi',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).toHaveBeenCalledWith(
       {
@@ -120,7 +120,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -128,21 +128,21 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.change(comp.getByTestId('ethnicity'), {
+    fireEvent.change(screen.getByTestId('ethnicity'), {
       target: {
         value: 'asian-or-asian-british',
       },
     });
 
-    fireEvent.change(comp.getByTestId('background'), {
+    fireEvent.change(screen.getByTestId('background'), {
       target: {
         value: 'bangladeshi',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
     expect(proceedToStep).not.toHaveBeenCalled();
   });
 
@@ -150,7 +150,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -158,11 +158,11 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.click(comp.getByTestId('agender'));
+    fireEvent.click(screen.getByTestId('agender'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
     expect(proceedToStep).not.toHaveBeenCalled();
   });
 
@@ -170,7 +170,7 @@ describe('About you', () => {
     const dataBag = { someStuff: 'hello' };
     const proceedToStep = jest.fn();
 
-    const comp = render(
+    render(
       <AboutYou
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -178,17 +178,17 @@ describe('About you', () => {
       />
     );
 
-    comp.getByText('Which best describes you?');
+    screen.getByText('Which best describes you?');
 
-    fireEvent.click(comp.getByTestId('agender'));
+    fireEvent.click(screen.getByTestId('agender'));
 
-    fireEvent.change(comp.getByTestId('ethnicity'), {
+    fireEvent.change(screen.getByTestId('ethnicity'), {
       target: {
         value: 'asian-or-asian-british',
       },
     });
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
     expect(proceedToStep).not.toHaveBeenCalled();
   });
 });

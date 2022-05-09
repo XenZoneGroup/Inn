@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  cleanup,
+  waitFor,
+  screen,
+} from '@testing-library/react';
 import { Username } from '../Username';
 import { testConfig } from './helpers';
 
@@ -49,7 +55,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -57,19 +63,19 @@ describe('Username', () => {
       />
     );
 
-    comp.getByText('Pick a username and password');
+    screen.getByText('Pick a username and password');
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'iamausername', true);
+    await _setUsername(screen, 'iamausername', true);
 
-    _setAndConfirmPassword(comp, 'A boring password 1');
+    _setAndConfirmPassword(screen, 'A boring password 1');
 
-    fireEvent.click(comp.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     waitFor(() => {
-      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
+      expect(screen.getByTestId('unique-username')).toBeInTheDocument();
       expect(proceedToStep).toHaveBeenCalledWith(
         {
           username: 'iamausername',
@@ -89,7 +95,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -98,11 +104,11 @@ describe('Username', () => {
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'iamausername', true);
+    await _setUsername(screen, 'iamausername', true);
 
-    _setAndConfirmPassword(comp, 'somepass!');
+    _setAndConfirmPassword(screen, 'somepass!');
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });
@@ -116,7 +122,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -125,17 +131,17 @@ describe('Username', () => {
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'iamausername', true);
+    await _setUsername(screen, 'iamausername', true);
 
     config.validatePassword.mockReturnValue(false);
-    _setAndConfirmPassword(comp, 'Pwd');
+    _setAndConfirmPassword(screen, 'Pwd');
 
-    fireEvent.click(comp.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     waitFor(() => {
-      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
+      expect(screen.getByTestId('unique-username')).toBeInTheDocument();
       expect(config.validatePassword).toHaveBeenCalledWith('Pwd');
       expect(proceedToStep).not.toHaveBeenCalled();
     });
@@ -149,7 +155,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -158,16 +164,16 @@ describe('Username', () => {
     );
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    fireEvent.change(comp.getByTestId('username'), {
+    fireEvent.change(screen.getByTestId('username'), {
       target: { value: 'invalid username' },
     });
-    await fireEvent.blur(comp.getByTestId('username'));
+    await fireEvent.blur(screen.getByTestId('username'));
 
-    _setAndConfirmPassword(comp, 'ValidPassword123%');
+    _setAndConfirmPassword(screen, 'ValidPassword123%');
 
-    fireEvent.click(comp.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });
@@ -180,7 +186,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -188,33 +194,30 @@ describe('Username', () => {
       />
     );
 
-    _setAndConfirmPassword(comp, 'ValidPassword123%');
+    _setAndConfirmPassword(screen, 'ValidPassword123%');
 
-    fireEvent.click(comp.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'newUsername', true);
+    await _setUsername(screen, 'newUsername', true);
     await expect(config.usernameIsNew).toHaveBeenCalled();
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(false));
-    await _setUsername(comp, 'existingUsername', false);
+    await _setUsername(screen, 'existingUsername', false);
     await expect(config.usernameIsNew).toHaveBeenCalled();
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'newUsername', true);
+    await _setUsername(screen, 'newUsername', true);
     await expect(config.usernameIsNew).toHaveBeenCalled();
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     waitFor(() => {
-      expect(comp.getByTestId('unique-username')).toBeInTheDocument();
-    });
-
-    waitFor(() => {
+      expect(screen.getByTestId('unique-username')).toBeInTheDocument();
       expect(proceedToStep).toHaveBeenCalledWith(
         {
           username: 'newUsername',
@@ -234,7 +237,7 @@ describe('Username', () => {
       usernameIsNew: jest.fn(),
     };
 
-    const comp = render(
+    render(
       <Username
         formData={dataBag}
         proceedToStep={proceedToStep}
@@ -242,17 +245,17 @@ describe('Username', () => {
       />
     );
 
-    comp.getByText('Pick a username and password');
+    screen.getByText('Pick a username and password');
 
     config.usernameIsNew.mockReturnValue(Promise.resolve(true));
-    await _setUsername(comp, 'iamausername', true);
+    await _setUsername(screen, 'iamausername', true);
 
-    _setAndConfirmPassword(comp, 'A boring password 1');
+    _setAndConfirmPassword(screen, 'A boring password 1');
 
-    fireEvent.click(comp.getByTestId('terms-of-service'));
-    fireEvent.click(comp.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
+    fireEvent.click(screen.getByTestId('terms-of-service'));
 
-    fireEvent.click(comp.getByTestId('submit'));
+    fireEvent.click(screen.getByTestId('submit'));
 
     expect(proceedToStep).not.toHaveBeenCalled();
   });
