@@ -32,6 +32,8 @@ Some notes:
 
 `npm run start`
 
+Note: if the start script fails, you may need to delete the node_modules folder before running `npm install` again.
+
 ### Feature Request
 
 For this interview, we've received a request for a new feature to add to this codebase.
