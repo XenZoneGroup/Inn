@@ -17,7 +17,7 @@ Some notes:
 
 - The CI set up and docker stuff has been removed.
 - The config for local development is in `./parcel.js`, in case changing it comes up.
-- This clone is as of last year. Our code is much better now.
+- This clone is quite old, and from our old platform. Our code is much better now.
 
 ### Setup
 
