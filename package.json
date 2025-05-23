@@ -17,6 +17,9 @@
     "ie 11",
     "not op_mini all"
   ],
+  "engines": {
+    "node": "22.3.0"
+  },
   "babel": {
     "presets": [
       "@babel/preset-env",
